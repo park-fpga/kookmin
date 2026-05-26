@@ -1,0 +1,36 @@
+[1.422s] Invoking command in '/home/qkenrrltk2/xycar_ws/src/recognition': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/recognition/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/recognition build --build-base /home/qkenrrltk2/xycar_ws/src/build/recognition/build install --record /home/qkenrrltk2/xycar_ws/src/build/recognition/install.log --single-version-externally-managed install_data
+[1.601s] running egg_info
+[1.601s] creating ../build/recognition/recognition.egg-info
+[1.601s] writing ../build/recognition/recognition.egg-info/PKG-INFO
+[1.602s] writing dependency_links to ../build/recognition/recognition.egg-info/dependency_links.txt
+[1.602s] writing entry points to ../build/recognition/recognition.egg-info/entry_points.txt
+[1.602s] writing requirements to ../build/recognition/recognition.egg-info/requires.txt
+[1.602s] writing top-level names to ../build/recognition/recognition.egg-info/top_level.txt
+[1.602s] writing manifest file '../build/recognition/recognition.egg-info/SOURCES.txt'
+[1.603s] reading manifest file '../build/recognition/recognition.egg-info/SOURCES.txt'
+[1.604s] writing manifest file '../build/recognition/recognition.egg-info/SOURCES.txt'
+[1.604s] running build
+[1.604s] running build_py
+[1.605s] creating /home/qkenrrltk2/xycar_ws/src/build/recognition/build
+[1.605s] creating /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib
+[1.605s] creating /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib/recognition
+[1.606s] copying recognition/yolo.py -> /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib/recognition
+[1.606s] copying recognition/__init__.py -> /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib/recognition
+[1.607s] running install
+[1.608s] running install_lib
+[1.608s] creating /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition
+[1.608s] copying /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib/recognition/yolo.py -> /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition
+[1.609s] copying /home/qkenrrltk2/xycar_ws/src/build/recognition/build/lib/recognition/__init__.py -> /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition
+[1.610s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition/yolo.py to yolo.cpython-310.pyc
+[1.610s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition/__init__.py to __init__.cpython-310.pyc
+[1.610s] running install_data
+[1.610s] creating /home/qkenrrltk2/xycar_ws/src/install/recognition/share/ament_index
+[1.611s] creating /home/qkenrrltk2/xycar_ws/src/install/recognition/share/ament_index/resource_index
+[1.611s] creating /home/qkenrrltk2/xycar_ws/src/install/recognition/share/ament_index/resource_index/packages
+[1.611s] copying resource/recognition -> /home/qkenrrltk2/xycar_ws/src/install/recognition/share/ament_index/resource_index/packages
+[1.611s] copying package.xml -> /home/qkenrrltk2/xycar_ws/src/install/recognition/share/recognition
+[1.611s] running install_egg_info
+[1.612s] Copying ../build/recognition/recognition.egg-info to /home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages/recognition-0.0.0-py3.10.egg-info
+[1.612s] running install_scripts
+[1.629s] writing list of installed files to '/home/qkenrrltk2/xycar_ws/src/build/recognition/install.log'
+[1.661s] Invoked command in '/home/qkenrrltk2/xycar_ws/src/recognition' returned '0': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/recognition/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/recognition/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/recognition build --build-base /home/qkenrrltk2/xycar_ws/src/build/recognition/build install --record /home/qkenrrltk2/xycar_ws/src/build/recognition/install.log --single-version-externally-managed install_data

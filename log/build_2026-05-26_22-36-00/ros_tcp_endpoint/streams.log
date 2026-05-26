@@ -1,0 +1,70 @@
+[1.407s] Invoking command in '/home/qkenrrltk2/xycar_ws/src/ROS-TCP-Endpoint-main-ros2': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/ros_tcp_endpoint build --build-base /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build install --record /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/install.log --single-version-externally-managed install_data
+[1.579s] running egg_info
+[1.579s] creating ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info
+[1.580s] writing ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/PKG-INFO
+[1.580s] writing dependency_links to ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/dependency_links.txt
+[1.580s] writing entry points to ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/entry_points.txt
+[1.580s] writing requirements to ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/requires.txt
+[1.580s] writing top-level names to ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/top_level.txt
+[1.581s] writing manifest file '../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/SOURCES.txt'
+[1.582s] reading manifest file '../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/SOURCES.txt'
+[1.582s] adding license file 'LICENSE'
+[1.582s] writing manifest file '../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info/SOURCES.txt'
+[1.582s] running build
+[1.582s] running build_py
+[1.583s] creating /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build
+[1.583s] creating /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib
+[1.583s] creating /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.583s] copying ros_tcp_endpoint/communication.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.583s] copying ros_tcp_endpoint/server.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.583s] copying ros_tcp_endpoint/__init__.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.583s] copying ros_tcp_endpoint/subscriber.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.583s] copying ros_tcp_endpoint/default_server_endpoint.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/exceptions.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/client.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/publisher.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/service.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/thread_pauser.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.584s] copying ros_tcp_endpoint/tcp_sender.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.585s] copying ros_tcp_endpoint/unity_service.py -> /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint
+[1.585s] running install
+[1.585s] running install_lib
+[1.585s] creating /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.586s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/communication.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.586s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/server.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.586s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/__init__.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.587s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/subscriber.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.587s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/default_server_endpoint.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.587s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/exceptions.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.587s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/client.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.587s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/publisher.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.588s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/service.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.588s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/thread_pauser.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.588s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/tcp_sender.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.588s] copying /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build/lib/ros_tcp_endpoint/unity_service.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint
+[1.589s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/communication.py to communication.cpython-310.pyc
+[1.590s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/server.py to server.cpython-310.pyc
+[1.595s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/__init__.py to __init__.cpython-310.pyc
+[1.595s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/subscriber.py to subscriber.cpython-310.pyc
+[1.597s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/default_server_endpoint.py to default_server_endpoint.cpython-310.pyc
+[1.597s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/exceptions.py to exceptions.cpython-310.pyc
+[1.597s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/client.py to client.cpython-310.pyc
+[1.597s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/publisher.py to publisher.cpython-310.pyc
+[1.598s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/service.py to service.cpython-310.pyc
+[1.598s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/thread_pauser.py to thread_pauser.cpython-310.pyc
+[1.599s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/tcp_sender.py to tcp_sender.cpython-310.pyc
+[1.599s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint/unity_service.py to unity_service.cpython-310.pyc
+[1.599s] running install_data
+[1.599s] creating /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ament_index
+[1.599s] creating /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ament_index/resource_index
+[1.599s] creating /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ament_index/resource_index/packages
+[1.599s] copying resource/ros_tcp_endpoint -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ament_index/resource_index/packages
+[1.599s] copying package.xml -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ros_tcp_endpoint
+[1.599s] creating /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ros_tcp_endpoint/launch
+[1.599s] copying launch/endpoint.py -> /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/share/ros_tcp_endpoint/launch
+[1.599s] running install_egg_info
+[1.600s] Copying ../build/ros_tcp_endpoint/ros_tcp_endpoint.egg-info to /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages/ros_tcp_endpoint-0.0.1-py3.10.egg-info
+[1.600s] running install_scripts
+[1.617s] Installing default_server_endpoint script to /home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/ros_tcp_endpoint
+[1.618s] writing list of installed files to '/home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/install.log'
+[1.654s] Invoked command in '/home/qkenrrltk2/xycar_ws/src/ROS-TCP-Endpoint-main-ros2' returned '0': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/ros_tcp_endpoint/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/ros_tcp_endpoint build --build-base /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/build install --record /home/qkenrrltk2/xycar_ws/src/build/ros_tcp_endpoint/install.log --single-version-externally-managed install_data

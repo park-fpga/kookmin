@@ -1,0 +1,36 @@
+running egg_info
+creating ../build/my_cam/my_cam.egg-info
+writing ../build/my_cam/my_cam.egg-info/PKG-INFO
+writing dependency_links to ../build/my_cam/my_cam.egg-info/dependency_links.txt
+writing entry points to ../build/my_cam/my_cam.egg-info/entry_points.txt
+writing requirements to ../build/my_cam/my_cam.egg-info/requires.txt
+writing top-level names to ../build/my_cam/my_cam.egg-info/top_level.txt
+writing manifest file '../build/my_cam/my_cam.egg-info/SOURCES.txt'
+reading manifest file '../build/my_cam/my_cam.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../build/my_cam/my_cam.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/qkenrrltk2/xycar_ws/src/build/my_cam/build
+creating /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib
+creating /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib/my_cam
+copying my_cam/cam_viewer.py -> /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib/my_cam
+copying my_cam/__init__.py -> /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib/my_cam
+running install
+running install_lib
+creating /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam
+copying /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib/my_cam/cam_viewer.py -> /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam
+copying /home/qkenrrltk2/xycar_ws/src/build/my_cam/build/lib/my_cam/__init__.py -> /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam
+byte-compiling /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam/cam_viewer.py to cam_viewer.cpython-310.pyc
+byte-compiling /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam/__init__.py to __init__.cpython-310.pyc
+running install_data
+creating /home/qkenrrltk2/xycar_ws/src/install/my_cam/share/ament_index
+creating /home/qkenrrltk2/xycar_ws/src/install/my_cam/share/ament_index/resource_index
+creating /home/qkenrrltk2/xycar_ws/src/install/my_cam/share/ament_index/resource_index/packages
+copying resource/my_cam -> /home/qkenrrltk2/xycar_ws/src/install/my_cam/share/ament_index/resource_index/packages
+copying package.xml -> /home/qkenrrltk2/xycar_ws/src/install/my_cam/share/my_cam
+running install_egg_info
+Copying ../build/my_cam/my_cam.egg-info to /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/python3.10/site-packages/my_cam-0.0.0-py3.10.egg-info
+running install_scripts
+Installing cam_viewer script to /home/qkenrrltk2/xycar_ws/src/install/my_cam/lib/my_cam
+writing list of installed files to '/home/qkenrrltk2/xycar_ws/src/build/my_cam/install.log'

@@ -1,0 +1,39 @@
+[1.404s] Invoking command in '/home/qkenrrltk2/xycar_ws/src/track_drive': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/track_drive/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/track_drive build --build-base /home/qkenrrltk2/xycar_ws/src/build/track_drive/build install --record /home/qkenrrltk2/xycar_ws/src/build/track_drive/install.log --single-version-externally-managed install_data
+[1.584s] running egg_info
+[1.584s] creating ../build/track_drive/track_drive.egg-info
+[1.584s] writing ../build/track_drive/track_drive.egg-info/PKG-INFO
+[1.585s] writing dependency_links to ../build/track_drive/track_drive.egg-info/dependency_links.txt
+[1.585s] writing entry points to ../build/track_drive/track_drive.egg-info/entry_points.txt
+[1.586s] writing requirements to ../build/track_drive/track_drive.egg-info/requires.txt
+[1.586s] writing top-level names to ../build/track_drive/track_drive.egg-info/top_level.txt
+[1.586s] writing manifest file '../build/track_drive/track_drive.egg-info/SOURCES.txt'
+[1.589s] reading manifest file '../build/track_drive/track_drive.egg-info/SOURCES.txt'
+[1.589s] adding license file 'LICENSE'
+[1.589s] writing manifest file '../build/track_drive/track_drive.egg-info/SOURCES.txt'
+[1.589s] running build
+[1.589s] running build_py
+[1.590s] creating /home/qkenrrltk2/xycar_ws/src/build/track_drive/build
+[1.590s] creating /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib
+[1.591s] creating /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib/track_drive
+[1.591s] copying track_drive/track_drive.py -> /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib/track_drive
+[1.591s] copying track_drive/__init__.py -> /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib/track_drive
+[1.592s] running install
+[1.592s] running install_lib
+[1.592s] creating /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive
+[1.592s] copying /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib/track_drive/track_drive.py -> /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive
+[1.592s] copying /home/qkenrrltk2/xycar_ws/src/build/track_drive/build/lib/track_drive/__init__.py -> /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive
+[1.592s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive/track_drive.py to track_drive.cpython-310.pyc
+[1.593s] byte-compiling /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive/__init__.py to __init__.cpython-310.pyc
+[1.593s] running install_data
+[1.593s] creating /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/ament_index
+[1.594s] creating /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/ament_index/resource_index
+[1.594s] creating /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/ament_index/resource_index/packages
+[1.594s] copying resource/track_drive -> /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/ament_index/resource_index/packages
+[1.594s] copying package.xml -> /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/track_drive
+[1.594s] creating /home/qkenrrltk2/xycar_ws/src/install/track_drive/share/track_drive/launch
+[1.594s] running install_egg_info
+[1.594s] Copying ../build/track_drive/track_drive.egg-info to /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages/track_drive-0.0.0-py3.10.egg-info
+[1.596s] running install_scripts
+[1.612s] Installing track_drive script to /home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/track_drive
+[1.613s] writing list of installed files to '/home/qkenrrltk2/xycar_ws/src/build/track_drive/install.log'
+[1.635s] Invoked command in '/home/qkenrrltk2/xycar_ws/src/track_drive' returned '0': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/track_drive/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/track_drive/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/track_drive build --build-base /home/qkenrrltk2/xycar_ws/src/build/track_drive/build install --record /home/qkenrrltk2/xycar_ws/src/build/track_drive/install.log --single-version-externally-managed install_data

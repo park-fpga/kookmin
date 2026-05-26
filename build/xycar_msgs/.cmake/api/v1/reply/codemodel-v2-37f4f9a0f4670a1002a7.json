@@ -1,0 +1,258 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-cdb55b9d66f6e55d3c4f.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						18
+					]
+				},
+				{
+					"build" : "xycar_msgs__py",
+					"jsonFile" : "directory-xycar_msgs__py-e607dbf785b0c16b3282.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/qkenrrltk2/xycar_ws/src/build/xycar_msgs/xycar_msgs__py",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "xycar_msgs__rs",
+					"jsonFile" : "directory-xycar_msgs__rs-deb2bc41065ca5d21d9d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/qkenrrltk2/xycar_ws/src/build/xycar_msgs/xycar_msgs__rs",
+					"targetIndexes" : 
+					[
+						17
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "xycar_msgs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_xycar_msgs_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_xycar_msgs_egg-4ac514fcbf2b235d34c1.json",
+					"name" : "ament_cmake_python_build_xycar_msgs_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_xycar_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_xycar_msgs-b9678593d48115a8a923.json",
+					"name" : "ament_cmake_python_copy_xycar_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-93679cb274ae1b93f20b.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs-c2b335d15f76eabce64b.json",
+					"name" : "xycar_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__cpp-aab1908e0b8e28b1fcb5.json",
+					"name" : "xycar_msgs__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "xycar_msgs__py::@eec8d90e0417f46c3f04",
+					"jsonFile" : "target-xycar_msgs__py-2bf411d3b5b86906ea60.json",
+					"name" : "xycar_msgs__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_generator_c-e0e7678f2bf18211b8b9.json",
+					"name" : "xycar_msgs__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_generator_py-ad5a8db323e32ab5b300.json",
+					"name" : "xycar_msgs__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_c-c4a37b58249be8fc5259.json",
+					"name" : "xycar_msgs__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_c__pyext-cd02658b68beb8e03f99.json",
+					"name" : "xycar_msgs__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_cpp-8760793aa8bef70c4f84.json",
+					"name" : "xycar_msgs__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_fastrtps_c-fe7616c0056c2e6af276.json",
+					"name" : "xycar_msgs__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_fastrtps_c__pyext-b3bd0fdef0a104607a76.json",
+					"name" : "xycar_msgs__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_fastrtps_cpp-7f65676c5b221eff590d.json",
+					"name" : "xycar_msgs__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_introspection_c-e2aa3452c9b7439b589c.json",
+					"name" : "xycar_msgs__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_introspection_c__pyext-182c35d0fe2fa3aa6d1d.json",
+					"name" : "xycar_msgs__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs__rosidl_typesupport_introspection_cpp-d44891169b83ae45755b.json",
+					"name" : "xycar_msgs__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "xycar_msgs__rs::@1b31cec7aee5cd0a2fd9",
+					"jsonFile" : "target-xycar_msgs__rs-c25ad13ce3f9cf9bc738.json",
+					"name" : "xycar_msgs__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "xycar_msgs_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-xycar_msgs_uninstall-19bc35cfc094015d0786.json",
+					"name" : "xycar_msgs_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/qkenrrltk2/xycar_ws/src/build/xycar_msgs",
+		"source" : "/home/qkenrrltk2/xycar_ws/src/xycar_msgs"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

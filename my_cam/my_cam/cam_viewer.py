@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 import cv2
 import rclpy
 from rclpy.node import Node
@@ -7,6 +5,9 @@ import numpy as np
 from sensor_msgs.msg import Image
 from rclpy.qos import qos_profile_sensor_data
 from cv_bridge import CvBridge
+from recognition.yolo import YoloDetector
+from recognition.lane import detect_lanes
+
 
 class CamViewerNode(Node):
     def __init__(self):
@@ -20,6 +21,10 @@ class CamViewerNode(Node):
             "left": None,
             "right": None
         }
+
+        # YOLO 객체 인식기 초기화 (아래쪽 사용된 이름과 동일하게 소문자로 변경)
+        self.yolo_detector = YoloDetector()
+        self.cone_detector = ConeDetector()
 
         # Subscribers
         self.sub_front = self.create_subscription(
@@ -60,6 +65,14 @@ class CamViewerNode(Node):
         b = cv2.resize(self.images["back"],  (w, h))
         l = cv2.resize(self.images["left"],  (w, h))
         r = cv2.resize(self.images["right"], (w, h))
+        
+        # --- 1. 차선 인식 적용 (OpenCV 슬라이딩 윈도우) ---
+        # detect_lanes 함수는 (결과이미지, 차선데이터, 디버그이미지들)을 반환하므로 첫 번째 값(결과이미지)만 화면에 씁니다.
+        f, lane_data, debug_imgs = detect_lanes(f)
+
+        # --- 2. 장애물 인식 적용 (YOLO & HSV 라바콘) ---
+        f = self.yolo_detector.detect(f)
+        f = self.cone_detector.detect(f)
 
         top = np.hstack((f, r))
         bottom = np.hstack((l, b))

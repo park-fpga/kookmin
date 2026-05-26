@@ -1,0 +1,22 @@
+[0.825s] Invoking command in '/home/qkenrrltk2/xycar_ws/src/kookmin9_viewer': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/kookmin9_viewer/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/kookmin9_viewer build --build-base /home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/build install --record /home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/install.log --single-version-externally-managed install_data
+[1.008s] running egg_info
+[1.008s] writing ../build/kookmin9_viewer/kookmin9_viewer.egg-info/PKG-INFO
+[1.009s] writing dependency_links to ../build/kookmin9_viewer/kookmin9_viewer.egg-info/dependency_links.txt
+[1.009s] writing entry points to ../build/kookmin9_viewer/kookmin9_viewer.egg-info/entry_points.txt
+[1.009s] writing requirements to ../build/kookmin9_viewer/kookmin9_viewer.egg-info/requires.txt
+[1.009s] writing top-level names to ../build/kookmin9_viewer/kookmin9_viewer.egg-info/top_level.txt
+[1.010s] reading manifest file '../build/kookmin9_viewer/kookmin9_viewer.egg-info/SOURCES.txt'
+[1.011s] adding license file 'LICENSE'
+[1.011s] writing manifest file '../build/kookmin9_viewer/kookmin9_viewer.egg-info/SOURCES.txt'
+[1.012s] running build
+[1.012s] running build_py
+[1.012s] running install
+[1.012s] running install_lib
+[1.014s] running install_data
+[1.014s] running install_egg_info
+[1.015s] removing '/home/qkenrrltk2/xycar_ws/src/install/kookmin9_viewer/lib/python3.10/site-packages/kookmin9_viewer-0.1.0-py3.10.egg-info' (and everything under it)
+[1.015s] Copying ../build/kookmin9_viewer/kookmin9_viewer.egg-info to /home/qkenrrltk2/xycar_ws/src/install/kookmin9_viewer/lib/python3.10/site-packages/kookmin9_viewer-0.1.0-py3.10.egg-info
+[1.016s] running install_scripts
+[1.033s] Installing test_viewer script to /home/qkenrrltk2/xycar_ws/src/install/kookmin9_viewer/lib/kookmin9_viewer
+[1.033s] writing list of installed files to '/home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/install.log'
+[1.061s] Invoked command in '/home/qkenrrltk2/xycar_ws/src/kookmin9_viewer' returned '0': PYTHONPATH=/home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/qkenrrltk2/xycar_ws/src/install/kookmin9_viewer/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/kookmin9_viewer build --build-base /home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/build install --record /home/qkenrrltk2/xycar_ws/src/build/kookmin9_viewer/install.log --single-version-externally-managed install_data
