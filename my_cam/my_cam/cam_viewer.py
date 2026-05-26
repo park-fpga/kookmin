@@ -24,7 +24,6 @@ class CamViewerNode(Node):
 
         # YOLO 객체 인식기 초기화 (아래쪽 사용된 이름과 동일하게 소문자로 변경)
         self.yolo_detector = YoloDetector()
-        self.cone_detector = ConeDetector()
 
         # Subscribers
         self.sub_front = self.create_subscription(
@@ -70,9 +69,8 @@ class CamViewerNode(Node):
         # detect_lanes 함수는 (결과이미지, 차선데이터, 디버그이미지들)을 반환하므로 첫 번째 값(결과이미지)만 화면에 씁니다.
         f, lane_data, debug_imgs = detect_lanes(f)
 
-        # --- 2. 장애물 인식 적용 (YOLO & HSV 라바콘) ---
+        # --- 2. 장애물 인식 적용 (YOLO) ---
         f = self.yolo_detector.detect(f)
-        f = self.cone_detector.detect(f)
 
         top = np.hstack((f, r))
         bottom = np.hstack((l, b))
