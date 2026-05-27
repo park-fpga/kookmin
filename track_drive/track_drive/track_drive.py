@@ -14,6 +14,7 @@ from sensor_msgs.msg import LaserScan
 from rclpy.qos import qos_profile_sensor_data
 from rclpy.duration import Duration
 from cv_bridge import CvBridge
+from recognition.lane import detect_lanes, calculate_steering
 
 #=============================================
 # ROS2 Node 클래스 정의
@@ -76,14 +77,32 @@ class TrackDriverNode(Node):
         self.get_logger().info("======================================")
 
         while rclpy.ok():
+            # ROS2 콜백 함수들이 실행될 수 있도록 이벤트를 한 번씩 처리합니다.
+            rclpy.spin_once(self, timeout_sec=0.01)
         
-            for _ in range(15):
-                self.drive(angle=0,speed=0)
-                time.sleep(0.1)
-
-            for _ in range(15):
-                self.drive(angle=0,speed=5)
-                time.sleep(0.1)
+            # 아직 카메라 이미지가 수신되지 않았다면 대기합니다.
+            if self.image is None:
+                continue
+                
+            # 1. 원본 이미지를 인식하기 좋은 사이즈(320x240)로 리사이즈
+            frame = cv2.resize(self.image, (320, 240))
+            
+            # 2. lane.py의 차선 인식 모듈 호출
+            result_img, lane_data, debug_imgs = detect_lanes(frame)
+            
+            # 3. 조향각(Steering) 계산
+            # calculate_steering은 -1.0 ~ 1.0 사이의 정규화된 값을 반환합니다.
+            steer = calculate_steering(lane_data, 320)
+            
+            # 4. Xycar 모터 제어 명령 (조향각: -50 ~ 50, 속도: 10 설정)
+            angle = float(steer * 50.0)
+            speed = float(10)  # 필요에 따라 속도를 가감하세요.
+            
+            self.drive(angle, speed)
+            
+            # 5. 차선 인식 결과를 화면에 출력하여 확인 (디버깅 용도)
+            cv2.imshow("Lane Tracking", result_img)
+            cv2.waitKey(1)
                 
 #=============================================
 # 메인 함수

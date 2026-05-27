@@ -18,11 +18,12 @@ def bird_eye_view(img):
         [w * 0.92, h * 0.95],
         [w * 0.08, h * 0.95]
     ])
+    # 옆 차선이 보이면서도 해상도를 유지하도록 중앙 50% 영역(0.25~0.75)으로 설정
     dst = np.float32([
-        [w * 0.2, 0],
-        [w * 0.8, 0],
-        [w * 0.8, h],
-        [w * 0.2, h]
+        [w * 0.25, 0],
+        [w * 0.75, 0],
+        [w * 0.75, h],
+        [w * 0.25, h]
     ])
     M = cv2.getPerspectiveTransform(src, dst)
     Minv = cv2.getPerspectiveTransform(dst, src)
@@ -45,122 +46,128 @@ def get_binary(img, v_min, s_max, clahe_limit):
     return binary
 
 def sliding_window(binary, img):
+    global last_left_fit, last_right_fit, stale_left, stale_right
     h, w = binary.shape
 
     histogram = np.sum(binary[h // 2:, :], axis=0)
-    midpoint = w // 2
 
-    # 이미지 가장자리 12%는 인도/경계 오인식 방지용으로 탐색 제외
-    edge_margin = int(w * 0.12)
-    left_hist  = histogram[edge_margin:midpoint]
-    right_hist = histogram[midpoint:w - edge_margin]
+    # scipy.signal.find_peaks를 대체하는 Numpy 기반 피크 파인딩
+    height_threshold = 50
+    distance = w // 6
+    local_maxima = []
 
-    left_peak  = int(np.max(left_hist))  if len(left_hist)  else 0
-    right_peak = int(np.max(right_hist)) if len(right_hist) else 0
-    left_x  = int(np.argmax(left_hist))  + edge_margin if left_peak  > 50 else midpoint // 2
-    right_x = int(np.argmax(right_hist)) + midpoint    if right_peak > 50 else midpoint + midpoint // 2
+    # 1. 주변보다 높은 피크(극댓값) 찾기
+    for i in range(1, len(histogram) - 1):
+        if histogram[i] >= height_threshold and histogram[i] > histogram[i - 1] and histogram[i] >= histogram[i + 1]:
+            local_maxima.append((i, histogram[i]))
+            
+    # 2. 높이 순으로 정렬하여 높은 피크부터 거리(distance) 제약 확인 후 추가
+    local_maxima.sort(key=lambda x: x[1], reverse=True)
+    peaks = []
+    for idx, val in local_maxima:
+        if all(abs(idx - p) >= distance for p in peaks):
+            peaks.append(idx)
+    peaks.sort() # x축 좌표 순으로 다시 정렬
 
     n_windows = 9
     window_height = h // n_windows
-    margin = 80
+    margin = 50
     min_pix = 50
-
-    # 슬라이딩 윈도우가 인도 쪽으로 흘러가지 않도록 x 경계 설정
-    LEFT_X_MIN, LEFT_X_MAX   = edge_margin,       int(w * 0.55)
-    RIGHT_X_MIN, RIGHT_X_MAX = int(w * 0.45), w - edge_margin
 
     nonzero = binary.nonzero()
     nonzero_y = np.array(nonzero[0])
     nonzero_x = np.array(nonzero[1])
 
-    left_current = left_x
-    right_current = right_x
-    left_lane_idx = []
-    right_lane_idx = []
-
     debug_img = cv2.cvtColor(binary, cv2.COLOR_GRAY2BGR)
+    detected_fits = []
 
-    for window in range(n_windows):
-        y_low = h - (window + 1) * window_height
-        y_high = h - window * window_height
-        x_left_low = left_current - margin
-        x_left_high = left_current + margin
-        x_right_low = right_current - margin
-        x_right_high = right_current + margin
+    for peak in peaks:
+        current_x = peak
+        lane_idx = []
+        
+        for window in range(n_windows):
+            y_low = h - (window + 1) * window_height
+            y_high = h - window * window_height
+            x_low = current_x - margin
+            x_high = current_x + margin
+            
+            cv2.rectangle(debug_img, (x_low, y_low), (x_high, y_high), (0, 255, 0), 2)
+            
+            good_idx = ((nonzero_y >= y_low) & (nonzero_y < y_high) &
+                        (nonzero_x >= x_low) & (nonzero_x < x_high)).nonzero()[0]
+            lane_idx.append(good_idx)
+            
+            if len(good_idx) > min_pix:
+                current_x = int(np.mean(nonzero_x[good_idx]))
+                
+        lane_idx = np.concatenate(lane_idx)
+        if len(lane_idx) > 100:
+            fit = np.polyfit(nonzero_y[lane_idx], nonzero_x[lane_idx], 2)
+            detected_fits.append(fit)
 
-        cv2.rectangle(debug_img, (x_left_low, y_low), (x_left_high, y_high), (0, 255, 0), 2)
-        cv2.rectangle(debug_img, (x_right_low, y_low), (x_right_high, y_high), (0, 255, 0), 2)
+    # 하단(x 절편)을 기준으로 왼쪽부터 오른쪽으로 차선을 정렬
+    detected_fits.sort(key=lambda fit: fit[0] * h**2 + fit[1] * h + fit[2])
+    
+    # 타겟 차선 선택 로직
+    left_fit, right_fit = None, None
+    
+    # TODO: 회피 제어 플래그 등에 따라 사용할 인덱스를 변경할 수 있습니다.
+    # 현재는 기본 주행을 위해 차량의 중심(w/2)을 감싸는 두 선을 잡도록 되어있습니다.
+    for fit in detected_fits:
+        x_pos = fit[0] * h**2 + fit[1] * h + fit[2]
+        if x_pos < w // 2:
+            left_fit = fit  # 중앙보다 왼쪽에 있는 가장 가까운 선
+        elif x_pos >= w // 2 and right_fit is None:
+            right_fit = fit # 중앙보다 오른쪽에 있는 첫 번째 선
 
-        good_left = ((nonzero_y >= y_low) & (nonzero_y < y_high) &
-                     (nonzero_x >= x_left_low) & (nonzero_x < x_left_high)).nonzero()[0]
-        good_right = ((nonzero_y >= y_low) & (nonzero_y < y_high) &
-                      (nonzero_x >= x_right_low) & (nonzero_x < x_right_high)).nonzero()[0]
+    # 3. EMA(지수 이동 평균) 필터 및 이전 프레임 기억(Stale) 로직 복원 (차선 춤추는 현상 방지)
+    alpha = 0.7  # 급격한 커브에서 늦게 따라오는 현상을 없애기 위해 현재 프레임 반영 비율을 70%로 높임
 
-        left_lane_idx.append(good_left)
-        right_lane_idx.append(good_right)
-
-        if len(good_left) > min_pix:
-            left_current = int(np.clip(np.mean(nonzero_x[good_left]), LEFT_X_MIN, LEFT_X_MAX))
-        if len(good_right) > min_pix:
-            right_current = int(np.clip(np.mean(nonzero_x[good_right]), RIGHT_X_MIN, RIGHT_X_MAX))
-
-    left_lane_idx = np.concatenate(left_lane_idx)
-    right_lane_idx = np.concatenate(right_lane_idx)
-
-    left_x_pts = nonzero_x[left_lane_idx]
-    left_y_pts = nonzero_y[left_lane_idx]
-    right_x_pts = nonzero_x[right_lane_idx]
-    right_y_pts = nonzero_y[right_lane_idx]
-
-    left_fit = None
-    right_fit = None
-
-    if len(left_x_pts) > 100:
-        left_fit = np.polyfit(left_y_pts, left_x_pts, 2)
+    if left_fit is not None:
+        if last_left_fit[0] is not None:
+            left_fit = alpha * left_fit + (1.0 - alpha) * last_left_fit[0]
         last_left_fit[0] = left_fit
         stale_left[0] = 0
     else:
         stale_left[0] += 1
-        if stale_left[0] > MAX_STALE:
-            last_left_fit[0] = None
-        elif last_left_fit[0] is not None:
+        if stale_left[0] <= MAX_STALE:
             left_fit = last_left_fit[0]
+        else:
+            last_left_fit[0] = None
 
-    if len(right_x_pts) > 100:
-        right_fit = np.polyfit(right_y_pts, right_x_pts, 2)
+    if right_fit is not None:
+        if last_right_fit[0] is not None:
+            right_fit = alpha * right_fit + (1.0 - alpha) * last_right_fit[0]
         last_right_fit[0] = right_fit
         stale_right[0] = 0
     else:
         stale_right[0] += 1
-        if stale_right[0] > MAX_STALE:
-            last_right_fit[0] = None
-        elif last_right_fit[0] is not None:
+        if stale_right[0] <= MAX_STALE:
             right_fit = last_right_fit[0]
+        else:
+            last_right_fit[0] = None
 
-    # 두 차선이 모두 검출됐을 때 폭 검증:
-    # 폭이 너무 크면(인도까지 포함한 것) 픽셀 수가 적은 쪽(= 덜 확실한 쪽) 버리기
-    if left_fit is not None and right_fit is not None:
-        y_check = h * 0.8
-        lx = left_fit[0]  * y_check**2 + left_fit[1]  * y_check + left_fit[2]
-        rx = right_fit[0] * y_check**2 + right_fit[1] * y_check + right_fit[2]
-        if rx - lx > w * 0.65:
-            if len(left_x_pts) >= len(right_x_pts):
-                right_fit = None
-                last_right_fit[0] = None
-            else:
-                left_fit = None
-                last_left_fit[0] = None
+    # 시각화를 위해 찾은 모든 차선(detected_fits)도 함께 반환
+    return left_fit, right_fit, debug_img, detected_fits
 
-    return left_fit, right_fit, debug_img
-
-def draw_lanes(img, left_fit, right_fit, Minv):
+def draw_lanes(img, left_fit, right_fit, Minv, all_fits=None):
     h, w = img.shape[:2]
     result = img.copy()
+
+    ploty = np.linspace(0, h - 1, h)
+
+    # 탐지된 모든 차선(옆 차선 포함)을 원본 이미지에 빨간색 선으로 시각화 (디버깅/확인용)
+    if all_fits is not None:
+        for fit in all_fits:
+            fit_x = fit[0] * ploty**2 + fit[1] * ploty + fit[2]
+            # 좌표를 묶고 변환 행렬(Minv)을 통해 버드아이뷰에서 원래 시점으로 투영
+            pts_line = np.array([np.vstack([fit_x, ploty]).T], dtype=np.float32)
+            pts_line_unwarped = cv2.perspectiveTransform(pts_line, Minv)
+            cv2.polylines(result, np.int32(pts_line_unwarped), isClosed=False, color=(0, 0, 255), thickness=4)
 
     if left_fit is None and right_fit is None:
         return result, None
 
-    ploty = np.linspace(0, h - 1, h)
     overlay = np.zeros_like(img)
 
     # 맨 아랫줄(차 바로 앞) 대신 60% 지점을 기준으로 조향 계산 (더 안정적)
@@ -206,8 +213,8 @@ def detect_lanes(image_array):
 
     warped, Minv = bird_eye_view(img)
     binary = get_binary(warped, v_min, s_max, clahe_limit)
-    left_fit, right_fit, debug_img = sliding_window(binary, img)
-    result, lane_center = draw_lanes(img, left_fit, right_fit, Minv)
+    left_fit, right_fit, debug_img, all_fits = sliding_window(binary, img)
+    result, lane_center = draw_lanes(img, left_fit, right_fit, Minv, all_fits)
 
     if left_fit is not None and right_fit is not None:
         status = 'Lane Detected'
@@ -239,8 +246,8 @@ def calculate_steering(lane_data, width):
     error = lane_center - image_center
     
     # PD 제어 (Proportional-Derivative) 적용
-    Kp = 0.0035  # 비례 게인 (현재 오차 반영)
-    Kd = 0.0050  # 미분 게인 (오차 변화량 반영하여 흔들림 억제)
+    Kp = 0.020  # 해상도 축소(320x240)로 오차값이 작아졌으므로 게인을 대폭 증가
+    Kd = 0.025  # 미분 게인도 함께 증가
     
     derivative = error - last_error[0]
     last_error[0] = error
@@ -248,7 +255,7 @@ def calculate_steering(lane_data, width):
     raw_steer = (Kp * error) + (Kd * derivative)
     raw_steer = max(-1.0, min(1.0, raw_steer))
 
-    # EMA 스무딩: 이전 steer 60% + 현재 40% → 급격한 조향 방지
-    smoothed = 0.6 * last_steer[0] + 0.4 * raw_steer
+    # EMA 스무딩: 커브에서 더 빠르게 반응하도록 현재 값의 비중을 70%로 높임
+    smoothed = 0.3 * last_steer[0] + 0.7 * raw_steer
     last_steer[0] = smoothed
     return smoothed
