@@ -9,7 +9,7 @@ class YoloDetector:
     def detect(self, img):
         """YOLO 검출만 수행. 반환: (annotated_img, tl_boxes)
         tl_boxes: {index: box} - 신호등(class 9) 박스만 모은 딕셔너리"""
-        results = self.yolo_model(img, verbose=False, classes=[0, 2, 9], conf=0.5)
+        results = self.yolo_model(img, verbose=False, classes=[0, 2, 9], conf=0.65)
 
         boxes = results[0].boxes
         valid_indices = []

@@ -15,8 +15,10 @@ from rclpy.qos import qos_profile_sensor_data
 from rclpy.duration import Duration
 from cv_bridge import CvBridge
 from recognition.yolo import YoloDetector
+from recognition.lane import detect_lanes
 from judgement.traffic_light_classifier import TrafficLightClassifier
 from control.traffic_light_drive import TrafficLightDrive
+from control.lane_drive import LaneDrive
 
 #=============================================
 # ROS2 Node 클래스 정의
@@ -39,6 +41,10 @@ class TrackDriverNode(Node):
         self.yolo = YoloDetector()
         self.classifier = TrafficLightClassifier()
         self.traffic = TrafficLightDrive()
+        self.lane_ctrl = LaneDrive()
+        self.yolo_tick = 0          # YOLO 실행 주기 카운터
+        self.cached_speed = 10.0   # 마지막으로 계산된 속도 캐시
+        self.smooth_factor = 1.0   # 커브 속도 감쇠 계수 (스무딩 적용)
         
         # ROS2 Publisher & Subscriber 설정
         self.motor_pub = self.create_publisher(XycarMotor,'xycar_motor',10)
@@ -91,14 +97,39 @@ class TrackDriverNode(Node):
 
             frame = cv2.resize(self.image, (320, 240))
 
-            annotated, tl_boxes = self.yolo.detect(frame)
-            tl_states = self.classifier.classify(frame, tl_boxes)
-            self.classifier.draw(annotated, tl_boxes, tl_states)
-            self.traffic.update(tl_states)
-            speed = self.traffic.get_speed()
+            # 차선 인식 → 조향각 계산
+            lane_result, (left_fit, right_fit, lane_center, w), (warped_color, debug_win, binary_color) = detect_lanes(frame)
+            angle = self.lane_ctrl.update(left_fit, right_fit, lane_center, w)
+            cv2.imshow("Lane Detection", lane_result)
+            cv2.imshow("Sliding Window", debug_win)
+            cv2.imshow("Bird Eye View", warped_color)
+            cv2.waitKey(1)
 
-            self.drive(angle=0, speed=speed)
-            self.traffic.show_debug(annotated)
+            # 신호등 인식 — 5프레임에 1번만 실행 (차선 제어가 매 프레임 동작하도록)
+            self.yolo_tick += 1
+            if self.yolo_tick % 5 == 0:
+                annotated, tl_boxes = self.yolo.detect(frame)
+                tl_states = self.classifier.classify(frame, tl_boxes)
+                self.classifier.draw(annotated, tl_boxes, tl_states)
+                self.traffic.update(tl_states)
+                self.cached_speed = self.traffic.get_speed()
+                self.traffic.show_debug(annotated)
+
+            # 급격한 커브에서 속도 감소 — 속도 회복은 천천히 (급가속 방지)
+            base_speed = self.cached_speed
+            if base_speed > 0:
+                target_factor = max(0.4, 1.0 - abs(angle) / 100.0)
+                # 감속은 빠르게(0.3), 가속 회복은 느리게(0.05) → 커브 후 급가속 방지
+                if target_factor < self.smooth_factor:
+                    self.smooth_factor = 0.3 * target_factor + 0.7 * self.smooth_factor
+                else:
+                    self.smooth_factor = 0.05 * target_factor + 0.95 * self.smooth_factor
+                speed = base_speed * self.smooth_factor
+            else:
+                speed = 0.0
+                self.smooth_factor = 1.0
+
+            self.drive(angle=angle, speed=speed)
 
 
                 
