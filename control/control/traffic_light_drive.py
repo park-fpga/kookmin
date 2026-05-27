@@ -1,6 +1,7 @@
 import cv2
 
-class TrafficLightJudgement:
+
+class TrafficLightDrive:
 
     def __init__(self):
         self.state = 'unknown'

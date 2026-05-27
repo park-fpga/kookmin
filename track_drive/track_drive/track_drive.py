@@ -15,7 +15,8 @@ from rclpy.qos import qos_profile_sensor_data
 from rclpy.duration import Duration
 from cv_bridge import CvBridge
 from recognition.yolo import YoloDetector
-from judgement.traffic_light_drive import TrafficLightJudgement
+from judgement.traffic_light_classifier import TrafficLightClassifier
+from control.traffic_light_drive import TrafficLightDrive
 
 #=============================================
 # ROS2 Node 클래스 정의
@@ -36,7 +37,8 @@ class TrackDriverNode(Node):
         self.lidar_ranges = None
         self.bridge = CvBridge()
         self.yolo = YoloDetector()
-        self.traffic = TrafficLightJudgement()
+        self.classifier = TrafficLightClassifier()
+        self.traffic = TrafficLightDrive()
         
         # ROS2 Publisher & Subscriber 설정
         self.motor_pub = self.create_publisher(XycarMotor,'xycar_motor',10)
@@ -89,7 +91,9 @@ class TrackDriverNode(Node):
 
             frame = cv2.resize(self.image, (320, 240))
 
-            annotated, tl_states = self.yolo.detect(frame)
+            annotated, tl_boxes = self.yolo.detect(frame)
+            tl_states = self.classifier.classify(frame, tl_boxes)
+            self.classifier.draw(annotated, tl_boxes, tl_states)
             self.traffic.update(tl_states)
             speed = self.traffic.get_speed()
 
