@@ -15,6 +15,7 @@ from rclpy.qos import qos_profile_sensor_data
 from rclpy.duration import Duration
 from cv_bridge import CvBridge
 from recognition.yolo import YoloDetector
+from judgement.traffic_light_drive import TrafficLightJudgement
 
 #=============================================
 # ROS2 Node 클래스 정의
@@ -35,7 +36,7 @@ class TrackDriverNode(Node):
         self.lidar_ranges = None
         self.bridge = CvBridge()
         self.yolo = YoloDetector()
-        self.traffic_state = 'unknown'  # 최근 신호등 상태
+        self.traffic = TrafficLightJudgement()
         
         # ROS2 Publisher & Subscriber 설정
         self.motor_pub = self.create_publisher(XycarMotor,'xycar_motor',10)
@@ -85,30 +86,17 @@ class TrackDriverNode(Node):
             # 아직 카메라 이미지가 수신되지 않았다면 대기합니다.
             if self.image is None:
                 continue
-                
-            # 1. 원본 이미지를 인식하기 좋은 사이즈(320x240)로 리사이즈
+
             frame = cv2.resize(self.image, (320, 240))
 
-            # 2. YOLO 신호등 인식
-            traffic_light, tl_states = self.yolo.detect(frame)
+            annotated, tl_states = self.yolo.detect(frame)
+            self.traffic.update(tl_states)
+            speed = self.traffic.get_speed()
 
-            # 신호등이 감지된 경우 상태 업데이트 (감지 안 되면 이전 상태 유지)
-            if tl_states:
-                states = list(tl_states.values())
-                self.traffic_state = 'red' if 'red' in states else states[0]
+            self.drive(angle=0, speed=speed)
+            self.traffic.show_debug(annotated)
 
-            # 3. 신호등 상태에 따라 정지 / 주행 결정
-            if self.traffic_state == 'red' or self.traffic_state == 'yellow':
-                self.drive(angle=0, speed=0)
-            else:
-                self.drive(angle=0, speed=10)
 
-            # 4. 신호등 상태를 화면에 표시 (디버깅 용도)
-            color = (0, 0, 255) if self.traffic_state == 'red' else (0, 200, 0)
-            cv2.putText(traffic_light, f"Traffic: {self.traffic_state}", (10, 20),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 2)
-            cv2.imshow("YOLO Detection", traffic_light)
-            cv2.waitKey(1)
                 
 #=============================================
 # 메인 함수
