@@ -24,6 +24,8 @@ class CamViewerNode(Node):
 
         # YOLO 객체 인식기 초기화 (아래쪽 사용된 이름과 동일하게 소문자로 변경)
         self.yolo_detector = YoloDetector()
+        
+        self.is_processing = False
 
         # Subscribers
         self.sub_front = self.create_subscription(
@@ -55,22 +57,23 @@ class CamViewerNode(Node):
 
     def process_images(self):
 
-        if any(v is None for v in self.images.values()):
-            return
-            
         h, w = 240, 320
-
-        f = cv2.resize(self.images["front"], (w, h))
-        b = cv2.resize(self.images["back"],  (w, h))
-        l = cv2.resize(self.images["left"],  (w, h))
-        r = cv2.resize(self.images["right"], (w, h))
         
-        # --- 1. 차선 인식 적용 (OpenCV 슬라이딩 윈도우) ---
-        # detect_lanes 함수는 (결과이미지, 차선데이터, 디버그이미지들)을 반환하므로 첫 번째 값(결과이미지)만 화면에 씁니다.
-        f, lane_data, debug_imgs = detect_lanes(f)
+        # 이미지가 안 들어오면 검은색 빈 화면(더미)으로 대체
+        blank_image = np.zeros((h, w, 3), dtype=np.uint8)
 
-        # --- 2. 장애물 인식 적용 (YOLO) ---
-        f = self.yolo_detector.detect(f)
+        f = cv2.resize(self.images["front"], (w, h)) if self.images["front"] is not None else blank_image
+        b = cv2.resize(self.images["back"],  (w, h)) if self.images["back"] is not None else blank_image
+        l = cv2.resize(self.images["left"],  (w, h)) if self.images["left"] is not None else blank_image
+        r = cv2.resize(self.images["right"], (w, h)) if self.images["right"] is not None else blank_image
+        
+        if self.images["front"] is not None:
+            # --- 1. 차선 인식 적용 (OpenCV 슬라이딩 윈도우) ---
+            # detect_lanes 함수는 (결과이미지, 차선데이터, 디버그이미지들)을 반환하므로 첫 번째 값(결과이미지)만 화면에 씁니다.
+            f, lane_data, debug_imgs = detect_lanes(f)
+
+            # --- 2. 장애물 인식 적용 (YOLO) ---
+            f, tl_states = self.yolo_detector.detect(f)
 
         top = np.hstack((f, r))
         bottom = np.hstack((l, b))
