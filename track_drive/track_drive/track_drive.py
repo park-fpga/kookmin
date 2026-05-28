@@ -17,6 +17,7 @@ from cv_bridge import CvBridge
 from recognition.yolo import YoloDetector
 from recognition.lane import detect_lanes
 from judgement.traffic_light_classifier import TrafficLightClassifier
+from judgement.lane_judgement import LaneJudgement
 from control.traffic_light_drive import TrafficLightDrive
 from control.lane_drive import LaneDrive
 
@@ -41,7 +42,8 @@ class TrackDriverNode(Node):
         self.yolo = YoloDetector()
         self.classifier = TrafficLightClassifier()
         self.traffic = TrafficLightDrive()
-        self.lane_ctrl = LaneDrive()
+        self.lane_judge = LaneJudgement()
+        self.lane_ctrl  = LaneDrive()
         self.yolo_tick = 0          # YOLO 실행 주기 카운터
         self.cached_speed = 10.0   # 마지막으로 계산된 속도 캐시
         self.smooth_factor = 1.0   # 커브 속도 감쇠 계수 (스무딩 적용)
@@ -97,9 +99,15 @@ class TrackDriverNode(Node):
 
             frame = cv2.resize(self.image, (320, 240))
 
-            # 차선 인식 → 조향각 계산
-            lane_result, (left_fit, right_fit, lane_center, w, current_lane), (warped_color, debug_win, binary_color) = detect_lanes(frame)
-            angle = self.lane_ctrl.update(left_fit, right_fit, lane_center, w)
+            # 인식 → 판단 → 제어
+            lane_result, (yellow_fit, right_fit, w), (warped_color, debug_win, binary_color) = detect_lanes(frame)
+            lane_center   = self.lane_judge.update(yellow_fit, right_fit, w)
+            lane_detected = (yellow_fit is not None) or (right_fit is not None)
+            angle         = self.lane_ctrl.update(lane_center, w, lane_detected)
+
+            det = f"Y:{'O' if yellow_fit is not None else 'X'} W:{'O' if right_fit is not None else 'X'}  ctr:{int(lane_center)}  Lane:{self.lane_judge.current_lane}"
+            cv2.putText(lane_result, det, (5, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (0, 255, 255), 1)
+
             cv2.imshow("Lane Detection", lane_result)
             cv2.imshow("Sliding Window", debug_win)
             cv2.imshow("Bird Eye View", warped_color)

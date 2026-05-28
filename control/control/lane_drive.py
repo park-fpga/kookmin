@@ -1,10 +1,9 @@
 import numpy as np
 
-
-ANGLE_GAIN = 4   # P 게인: 차선 오차(픽셀) → 조향각
-D_GAIN     = 1   # D 게인: 오차 변화율 → 방향 전환 예측 보정
+ANGLE_GAIN = 4
+D_GAIN     = 1
 ANGLE_MAX  = 250.0
-ALPHA      = 0.7  # 스무딩 (낮출수록 빠른 반응)
+ALPHA      = 0.7
 
 
 class LaneDrive:
@@ -14,16 +13,14 @@ class LaneDrive:
         self.last_lane_center = None
         self.last_error       = 0.0
 
-    def update(self, left_fit, right_fit, lane_center: float, img_width: int) -> float:
-        lane_detected = (left_fit is not None) or (right_fit is not None)
-
+    def update(self, lane_center: float, img_width: int, lane_detected: bool) -> float:
         if lane_detected:
             self.last_lane_center = lane_center
         elif self.last_lane_center is not None:
             lane_center = self.last_lane_center
 
         error      = lane_center - img_width / 2
-        error_diff = error - self.last_error   # 오차 변화율 (S자 구간에서 방향 전환 예측)
+        error_diff = error - self.last_error
         self.last_error = error
 
         raw_angle = ANGLE_GAIN * error + D_GAIN * error_diff
