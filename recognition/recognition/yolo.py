@@ -21,6 +21,7 @@ class YoloDetector:
 
             if cls_id == 0 and conf < 0.7:
                 continue
+
             valid_indices.append(i)
 
             if cls_id == 9:

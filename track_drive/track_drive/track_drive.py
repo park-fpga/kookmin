@@ -98,14 +98,14 @@ class TrackDriverNode(Node):
             frame = cv2.resize(self.image, (320, 240))
 
             # 차선 인식 → 조향각 계산
-            lane_result, (left_fit, right_fit, lane_center, w), (warped_color, debug_win, binary_color) = detect_lanes(frame)
+            lane_result, (left_fit, right_fit, lane_center, w, current_lane), (warped_color, debug_win, binary_color) = detect_lanes(frame)
             angle = self.lane_ctrl.update(left_fit, right_fit, lane_center, w)
             cv2.imshow("Lane Detection", lane_result)
             cv2.imshow("Sliding Window", debug_win)
             cv2.imshow("Bird Eye View", warped_color)
             cv2.waitKey(1)
 
-            # 신호등 인식 — 5프레임에 1번만 실행 (차선 제어가 매 프레임 동작하도록)
+            
             self.yolo_tick += 1
             if self.yolo_tick % 5 == 0:
                 annotated, tl_boxes = self.yolo.detect(frame)

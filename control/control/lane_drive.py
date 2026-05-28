@@ -1,10 +1,10 @@
 import numpy as np
 
 
-ANGLE_GAIN = 2   # P 게인: 차선 오차(픽셀) → 조향각
+ANGLE_GAIN = 4   # P 게인: 차선 오차(픽셀) → 조향각
 D_GAIN     = 1   # D 게인: 오차 변화율 → 방향 전환 예측 보정
-ANGLE_MAX  = 200.0
-ALPHA      = 0.9  # 스무딩 (낮출수록 빠른 반응)
+ANGLE_MAX  = 250.0
+ALPHA      = 0.7  # 스무딩 (낮출수록 빠른 반응)
 
 
 class LaneDrive:

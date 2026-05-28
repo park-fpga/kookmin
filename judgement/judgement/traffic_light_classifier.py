@@ -1,8 +1,15 @@
 import cv2
 import numpy as np
+from collections import deque
+
+CONFIRM_FRAMES = 3  # 같은 상태가 연속으로 이 횟수 이상 감지돼야 확정
 
 
 class TrafficLightClassifier:
+
+    def __init__(self):
+        self._buffer    = deque(maxlen=CONFIRM_FRAMES)
+        self._confirmed = 'unknown'
 
     def _green_mask(self, hsv):
         return cv2.inRange(hsv, (40, 60, 60), (90, 255, 255))
@@ -34,7 +41,7 @@ class TrafficLightClassifier:
         if area < 30 or perimeter == 0:
             return False
         circularity = 4 * np.pi * area / (perimeter ** 2)
-        return circularity < 0.6
+        return circularity < 0.5
 
     def _classify_one(self, img, box):
         """신호등 박스 하나의 상태를 반환"""
@@ -58,11 +65,36 @@ class TrafficLightClassifier:
         return best if counts[best] >= 30 else 'unknown'
 
     def classify(self, img, tl_boxes):
-        """tl_boxes: {i: box} → {i: state}"""
-        return {i: self._classify_one(img, box) for i, box in tl_boxes.items()}
+        """tl_boxes: {i: box} → {i: confirmed_state}
+        CONFIRM_FRAMES 연속으로 같은 상태가 감지돼야 확정 (순간 오인식 방지)
+        """
+        raw = {i: self._classify_one(img, box) for i, box in tl_boxes.items()}
+
+        # 이번 프레임의 대표 상태 (red 최우선, 없으면 첫 번째 유효 상태)
+        states = list(raw.values())
+        if not states:
+            frame_state = 'unknown'
+        elif 'red' in states:
+            frame_state = 'red'
+        else:
+            frame_state = next((s for s in states if s != 'unknown'), 'unknown')
+
+        self._buffer.append(frame_state)
+
+        stop_states = {'red', 'yellow'}
+        go_states   = {'green', 'green_arrow', 'unknown'}
+
+        if self._confirmed in stop_states and frame_state in go_states:
+            # 정지 → 출발: 즉시 전환 (신호 바뀌면 바로 반응)
+            self._confirmed = frame_state
+        elif len(self._buffer) == CONFIRM_FRAMES and len(set(self._buffer)) == 1:
+            # 출발 → 정지: CONFIRM_FRAMES 연속 확인 후 전환 (오인식 방지)
+            self._confirmed = frame_state
+
+        return {i: self._confirmed for i in raw} if raw else {}
 
     def draw(self, annotated, tl_boxes, tl_states):
-        """annotated 이미지에 신호등 상태 라벨 덧그리기"""
+        """annotated 이미지에 신호등 상태 라벨 추가"""
         color_bgr = {
             'red':         (0, 0, 255),
             'green':       (0, 200, 0),
